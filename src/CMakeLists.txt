@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.0)
 
 add_executable(astral
-    main.c
+    main.cpp
 
-    lexer.c
-    token.c
-    parser.c
+    lexer.cpp
+    token.cpp
+    parser.cpp
 
-    lexer.h
-    token.h
-    parser.h
+    lexer.hpp
+    token.hpp
+    parser.hpp
 )
