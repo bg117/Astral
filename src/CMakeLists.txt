@@ -6,8 +6,10 @@ add_executable(astral
     lexer.cpp
     token.cpp
     parser.cpp
+    ast.cpp
 
     lexer.hpp
     token.hpp
     parser.hpp
+    ast.hpp
 )
