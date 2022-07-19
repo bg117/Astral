@@ -1,7 +1,7 @@
 #include "token.hpp"
 
 static const char *type_strings[] = {
-#define X(a, b) #a,
+#define X(a, b) #b,
 #include "token.enum"
 #undef X
 };

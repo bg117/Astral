@@ -2,17 +2,25 @@
 #include <stdexcept>
 #include <string>
 
-#include "lexer.hpp"
 #include "token.hpp"
+
+#include "lexer.hpp"
 
 Astral::Lexer::Lexer(std::string src)
     : m_src(std::move(src)), m_it(m_src.begin()), m_line(1), m_column(1)
 {
 }
 
+void Astral::Lexer::reset()
+{
+    m_it     = m_src.begin();
+    m_line   = 1;
+    m_column = 1;
+}
+
 Astral::Token Astral::Lexer::next_token()
 {
-    Token token{ "", TokenType::Eof, 0, 0 };
+    Token token{ "", TokenType::Eof, m_line, m_column };
 
     skip_whitespace();
 
@@ -58,7 +66,7 @@ Astral::Token Astral::Lexer::next_token()
 
 bool Astral::Lexer::is_at_end()
 {
-    return m_it == m_src.end();
+    return m_it == m_src.cend();
 }
 
 void Astral::Lexer::advance()

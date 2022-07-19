@@ -1,10 +1,13 @@
-X(Eof, "EOF")
+X(Eof, EOF)
 
-X(Unknown, "Unknown")
-X(String, "String")
-X(Number, "Number")
+X(Unknown, Unknown)
+X(String, String)
+X(Number, Number)
 
-X(Plus, "Plus")
-X(Minus, "Minus")
-X(Asterisk, "Asterisk")
+X(Plus, Plus)
+X(Minus, Minus)
+X(Asterisk, Asterisk)
 X(Slash, Slash)
+
+X(LParen, LParen)
+X(RParen, RParen)

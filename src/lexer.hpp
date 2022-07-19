@@ -1,7 +1,5 @@
 #pragma once
 
-#include <string>
-
 namespace Astral
 {
     class Lexer
@@ -9,7 +7,8 @@ namespace Astral
     public:
         Lexer(std::string src);
 
-        class Token next_token();
+        Token next_token();
+        void  reset();
 
     private:
         std::string           m_src;

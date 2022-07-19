@@ -1,46 +1,50 @@
 #pragma once
 
-#include <memory>
-
-#include "token.hpp"
-
 namespace Astral
 {
+    class ASTVisitor;
+
     class ASTNode
     {
+    public:
+        virtual void accept(ASTVisitor &visitor) = 0;
     };
 
-    class ExprASTNode : ASTNode
+    class ExprASTNode : public ASTNode
     {
     };
 
-    class StmtASTNode : ASTNode
+    class StmtASTNode : public ASTNode
     {
     };
 
-    class UnaryExprASTNode final : ExprASTNode
+    class UnaryExprASTNode final : public ExprASTNode
     {
     public:
-        UnaryExprASTNode(std::unique_ptr<ExprASTNode> expr, struct Token op);
+        UnaryExprASTNode(std::unique_ptr<ExprASTNode> expr, Token op);
 
         const std::unique_ptr<ExprASTNode> &expr() const;
         Token                               op() const;
+
+        void accept(ASTVisitor &visitor) override;
 
     private:
         std::unique_ptr<ExprASTNode> m_expr;
         Token                        m_op;
     };
 
-    class BinaryExprASTNode final : ExprASTNode
+    class BinaryExprASTNode final : public ExprASTNode
     {
     public:
         BinaryExprASTNode(std::unique_ptr<ExprASTNode> lhs,
                           std::unique_ptr<ExprASTNode> rhs,
-                          struct Token                 op);
+                          Token                        op);
 
         const std::unique_ptr<ExprASTNode> &lhs() const;
         const std::unique_ptr<ExprASTNode> &rhs() const;
         Token                               op() const;
+
+        void accept(ASTVisitor &visitor) override;
 
     private:
         std::unique_ptr<ExprASTNode> m_lhs;
@@ -48,14 +52,29 @@ namespace Astral
         Token                        m_op;
     };
 
-    class NumberExprASTNode final : ExprASTNode
+    class NumberExprASTNode final : public ExprASTNode
     {
     public:
         NumberExprASTNode(unsigned long long value);
 
         unsigned long long value() const;
 
+        void accept(ASTVisitor &visitor) override;
+
     private:
         unsigned long long m_value;
+    };
+
+    class StringExprASTNode final : public ExprASTNode
+    {
+    public:
+        StringExprASTNode(std::string value);
+
+        std::string value() const;
+
+        void accept(ASTVisitor &visitor) override;
+
+    private:
+        std::string m_value;
     };
 } // namespace Astral
